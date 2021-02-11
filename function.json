@@ -1,0 +1,27 @@
+{
+    "FunctionName": "mo-covid-vaccine-data",
+    "FunctionArn": "arn:aws:lambda:us-east-2:796077402566:function:mo-covid-vaccine-data",
+    "Runtime": "python3.7",
+    "Role": "arn:aws:iam::796077402566:role/mo-covid-dashboard-archiver",
+    "Handler": "function.lambda_handler",
+    "CodeSize": 744,
+    "Description": "",
+    "Timeout": 900,
+    "MemorySize": 128,
+    "LastModified": "2021-02-11T20:23:42.744+0000",
+    "CodeSha256": "Daf+gMpbwIlFQGhs7oQqoSyPPFNpyfV8MYvKk6xU4tM=",
+    "Version": "$LATEST",
+    "TracingConfig": {
+        "Mode": "PassThrough"
+    },
+    "RevisionId": "15afa98a-4e23-4559-b40c-469f0303ffc3",
+    "Layers": [
+        {
+            "Arn": "arn:aws:lambda:us-east-2:796077402566:layer:tableau-scraper:1",
+            "CodeSize": 40083731
+        }
+    ],
+    "State": "Active",
+    "LastUpdateStatus": "Successful",
+    "PackageType": "Zip"
+}
