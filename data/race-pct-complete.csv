@@ -1,7 +1,0 @@
-,Race-value,Race-alias,SUM(Pop Benchmark - Race)-alias,AGG(First COVID-19 Dose Administered)-alias,AGG(COVID-19 Doses Administered)-alias,AGG(Pop % Complete - Race)-value,AGG(Pop % Complete - Race)-alias,AGG(Pop Size - Race)-alias
-0,White,White,346163.944,345624,453688,0.0740121386417247,0.0740121386417247,4669828.576
-1,Native Hawaiian or Other Pacif,Native Hawaiian or Other Pacific Islander,3.126,1204,1563,0.1227588355773866,0.1227588355773866,9807.848
-2,Multi-racial,Multi-racial,1529.976,35442,54642,0.2068158358025346,0.2068158358025346,171369.856
-3,Black or African-American,Black or African-American,3911.0580000000004,21568,29187,0.0271299247568241,0.0271299247568241,794989.304
-4,Asian,Asian,629.1759999999999,7054,10664,0.020264803642312,0.020264803642312,348091.209
-5,American Indian or Alaska Nati,American Indian or Alaska Native,10.023,559,771,0.0077807437088163,0.0077807437088163,71844.03199999999
