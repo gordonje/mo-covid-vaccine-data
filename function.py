@@ -1,9 +1,10 @@
 import os
+from io import StringIO
 from tableauscraper import TableauScraper as TS
+from s3 import write_to as write_to_s3
 
 
 URL = "https://results.mo.gov/t/COVID19/views/VaccinationsDashboard/Vaccinations"
-DATA_STORAGE_PATH = 'data'
 
 
 def get_worksheets():
@@ -29,13 +30,22 @@ def download_worksheet_csv(worksheet):
     return worksheet.data.to_csv(file_path)
 
 
+def write_worksheet_to_csv_on_s3(worksheet):
+    key = f'{format_worksheet_name(worksheet.name)}.csv'
+
+    csv_buffer = StringIO()
+    worksheet.data.to_csv(csv_buffer, index=False)
+
+    return write_to_s3(key, csv_buffer.getvalue(), "text/csv")
+
+
 def main():
-
-    if not os.path.isdir(DATA_STORAGE_PATH):
-        os.mkdir(DATA_STORAGE_PATH)
-
     for ws in get_worksheets():
-        download_worksheet_csv(ws)
+        write_worksheet_to_csv_on_s3(ws)
+
+
+def lambda_handler(event, context):
+    main()
 
 
 if __name__ == "__main__":
