@@ -23,8 +23,8 @@ jobs:
           aws-region: us-east-2
 
       - name: Update lambda function
-      - run: |
+        run: |
           chmod +x ${GITHUB_WORKSPACE}/update.sh
           ${GITHUB_WORKSPACE}/update.sh
-      - with:
+        env:
           PROJECT-NAME: mo-covid-vaccine-data 
