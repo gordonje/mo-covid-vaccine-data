@@ -21,13 +21,13 @@ jobs:
           ${GITHUB_WORKSPACE}/package.sh
       
       - name: Update lambda
-        uses: yvesgurcan/deploy-lambda-function@v0
+        uses: appleboy/lambda-action@master
         with:
-          package: package.zip
-          function-name: mo-covid-vaccine-data 
-          AWS_REGION: us-east-2
-          AWS_SECRET_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_region: us-east-2
+          function_name: mo-covid-vaccine-data
+          zip_file: package.zip
       
 #       - name: Configure AWS credentials
 #         uses: aws-actions/configure-aws-credentials@v1
