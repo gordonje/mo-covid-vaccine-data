@@ -23,4 +23,6 @@ jobs:
           aws-region: us-east-2
 
       - name: Update lambda function
-        run: ${GITHUB_WORKSPACE}/update.sh
+        run: |
+          chmod +x ${GITHUB_WORKSPACE}/update.sh
+          ${GITHUB_WORKSPACE}/update.sh
