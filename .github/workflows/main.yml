@@ -21,7 +21,7 @@ jobs:
           ${GITHUB_WORKSPACE}/package.sh
       
       - name: Update lambda
-        uses: yvesgurcan/deploy-lambda-function@v1
+        uses: yvesgurcan/deploy-lambda-function@v0
         with:
           package: package.zip
           function-name: mo-covid-vaccine-data 
