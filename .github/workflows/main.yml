@@ -27,4 +27,4 @@ jobs:
           chmod +x ${GITHUB_WORKSPACE}/update.sh
           ${GITHUB_WORKSPACE}/update.sh
         env:
-          PROJECT-NAME: mo-covid-vaccine-data 
+          {PROJECT-NAME}: mo-covid-vaccine-data 
