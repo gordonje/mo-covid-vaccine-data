@@ -4,10 +4,7 @@ from tableauscraper import TableauScraper as TS
 from s3 import write_to as write_to_s3
 
 
-PROJECT_NAME = os.getenv('PROJECT_NAME')
-
 URL = "https://results.mo.gov/t/COVID19/views/VaccinationsDashboard/Vaccinations"
-DATA_STORAGE_PATH = 'data'
 
 
 def get_worksheets():
@@ -42,13 +39,13 @@ def write_worksheet_to_csv_on_s3(worksheet):
     return write_to_s3(key, csv_buffer.getvalue(), "text/csv")
 
 
-def lambda_handler(event, context):
-    main()
-
-
 def main():
     for ws in get_worksheets():
         write_worksheet_to_csv_on_s3(ws)
+
+
+def lambda_handler(event, context):
+    main()
 
 
 if __name__ == "__main__":
