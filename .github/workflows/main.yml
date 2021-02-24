@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  
+  pull_request:
+    types: [ closed ]
+    branches: [ main ]
+  
+jobs:
+  update-lambda:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Package zip
+        run: |
+          chmod +x ${GITHUB_WORKSPACE}/package.sh
+          ${GITHUB_WORKSPACE}/package.sh
+      
+      - name: Update lambda
+        uses: appleboy/lambda-action@master
+        with:
+          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_region: us-east-2
+          function_name: mo-covid-vaccine-data
+          zip_file: package.zip
+      
+#       - name: Configure AWS credentials
+#         uses: aws-actions/configure-aws-credentials@v1
+#         with:
+#           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#           aws-region: us-east-2
+
+#       - name: Update lambda function
+#         run: |
+#           chmod +x ${GITHUB_WORKSPACE}/update.sh
+#           ${GITHUB_WORKSPACE}/update.sh
+#         env:
+#           {PROJECT-NAME}: mo-covid-vaccine-data 

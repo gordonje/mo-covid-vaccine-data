@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MO Covid-19 Vaccination Data</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+    	#main {
+    		max-width: 1000px;
+    		margin: 100px auto;
+    	}
+    </style>
+</head>
+<body>
+    <div id="main">
+    	<table class="table">
+    		<tr>
+    			<td>Worksheet</td>
+    			<td>Last updated</td>
+    			<td>Download latest</td>
+    			<td>See version history</td>
+    		</tr>
+	    {% for sheet in worksheets %}
+	        <tr>
+	        	<td>{{ sheet.Key }}</td>
+	        	<td>{{ sheet.LastModified }}
+	        	<td><a href="https://mo-covid-vaccine-data.s3.us-east-2.amazonaws.com/{{ sheet.Key }}.csv">Download latest</a></td>
+	        	<td><a href="{{ sheet.Key }}.html">Version history</a></td>
+	        <tr>
+	    {% endfor %}
+    	</table>
+    </div>
+</body>
+</html>

@@ -7,5 +7,6 @@
 # cd ${OLDPWD}
 
 zip -g -r package.zip function.py
+zip -g -r package.zip s3.py
 
 # rm -rf package
