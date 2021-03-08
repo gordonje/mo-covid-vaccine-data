@@ -1,1 +1,2 @@
-TableauScraper
+jinja2
+pytz
