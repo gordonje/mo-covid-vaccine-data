@@ -5,8 +5,8 @@
 pip install --upgrade --target package/ -r requirements.txt
 cd package
 zip -r9 ${OLDPWD}/package.zip .
-rm -rf package
 cd ${OLDPWD}
+rm -rf package
 
 # add source code
 zip -g -r package.zip templates/*
