@@ -1,8 +1,7 @@
 import os
 from io import StringIO
 from tableauscraper import TableauScraper as TS
-from s3 import write_to as write_to_s3
-from s3 import read_all_files, read_object_versions
+import s3
 from jinja2 import Template, Environment, FileSystemLoader
 import datetime
 from pytz import *
@@ -24,7 +23,7 @@ def format_worksheet_name(name):
         .replace("%", "pct") \
         .replace(" - ", "-") \
         .replace(" ", "-") \
-        .lower() \
+        .lower()
 
 
 def download_worksheet_csv(worksheet):
@@ -40,22 +39,15 @@ def write_worksheet_to_csv_on_s3(worksheet):
     csv_buffer = StringIO()
     worksheet.data.to_csv(csv_buffer, index=False)
 
-    return write_to_s3(key, csv_buffer.getvalue(), "text/csv")
-
-
-def write_html_to_s3(filename, html_string):
-    with open(f'templates/{filename}.html', 'w', encoding='utf-8') as f:
-        f.write(html_string)
-    with open(f'templates/{filename}.html', 'r', encoding='utf-8') as f:
-        return write_to_s3(f'{filename}.html', f.read(), 'text/html')
+    return s3.write_to(key, csv_buffer.getvalue(), "text/csv")
 
 
 def build_page():
     worksheets = []
     
-    offset = datetime.timedelta(hours = 6)
+    offset = datetime.timedelta(hours=6)
 
-    for file in read_all_files():
+    for file in s3.read_all_files():
         if file['Key'].endswith('.csv'):
             file['Key'] = file['Key'].split('.')[0]
 
@@ -68,18 +60,18 @@ def build_page():
     main_template = env.get_template('template.html')
     html_string = main_template.render(worksheets = worksheets)
 
-    write_html_to_s3('index', html_string)
+    s3.write_to("index.html", html_string, "text/html")
 
     version_template = env.get_template('version.html')
     for sheet in worksheets:
-        versions = read_object_versions(sheet['Key'])['Versions']
+        versions = s3.read_object_versions(sheet['Key'])['Versions']
 
         for version in versions:
             version['LastModified'] = (version['LastModified'] - offset).strftime("%Y-%m-%d %H:%M:%S")
 
         versions_html_string = version_template.render(versions = versions)
 
-        write_html_to_s3(sheet['Key'], versions_html_string)
+        s3.write_to(f"{sheet['Key']}.html", versions_html_string, "text/html")
 
 
 def main():
